@@ -1,0 +1,21 @@
+Package: UWBiost561FP
+Title: Package for Pascal matrix
+Version: 0.0.0.9000
+Authors@R: 
+    person("Yingxuan", "Wu", , "yw763@uw.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package can generate Pascal matrix.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports:
+    expm,
+    tidyr,
+    dplyr,
+    ggplot2
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat,
+VignetteBuilder: knitr
