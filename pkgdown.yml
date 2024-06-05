@@ -1,0 +1,10 @@
+pandoc: 3.1.11
+pkgdown: 2.0.9
+pkgdown_sha: ~
+articles:
+  FP: FP.html
+last_built: 2024-06-05T23:36Z
+urls:
+  reference: https://yxwr5.github.io/UWBiost561FP/reference
+  article: https://yxwr5.github.io/UWBiost561FP/articles
+
