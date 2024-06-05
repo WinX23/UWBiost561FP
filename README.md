@@ -133,8 +133,4 @@ This package was developed in the following environment
    yaml           2.3.8      2023-12-11 [1] CRAN (R 4.3.2)
 
  [1] C:/R Programming/R-4.3.3/library
-
- P -- Loaded and on-disk path mismatch.
-
--------------------------------------------------------------------------------
 ```
