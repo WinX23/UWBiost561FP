@@ -1,5 +1,7 @@
 ---
 title: "FP"
+author: "Yingxuan Wu"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{FP}
