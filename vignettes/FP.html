@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>FP</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">FP</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(UWBiost561FP)</span></code></pre></div>
+<p>This is a vignette for our package. We will generate Pascal’s
+triangle in matrix forms in three ways: a lower-triangular matrix, an
+upper-triangular matrix, and a symmetric matrix. Then, we will plot them
+separately.</p>
+<div id="lower-triangular-matrix" class="section level2">
+<h2>lower-triangular matrix</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="fu">generate_tri_pascal_matrix</span>(<span class="dv">10</span>, <span class="st">&quot;lower&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>lower</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;  [1,]    1    0    0    0    0    0    0    0    0     0</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;  [2,]    1    1    0    0    0    0    0    0    0     0</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt;  [3,]    1    2    1    0    0    0    0    0    0     0</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;  [4,]    1    3    3    1    0    0    0    0    0     0</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt;  [5,]    1    4    6    4    1    0    0    0    0     0</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;  [6,]    1    5   10   10    5    1    0    0    0     0</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt;  [7,]    1    6   15   20   15    6    1    0    0     0</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt;  [8,]    1    7   21   35   35   21    7    1    0     0</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;  [9,]    1    8   28   56   70   56   28    8    1     0</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; [10,]    1    9   36   84  126  126   84   36    9     1</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="fu">pascal_matrix_plot</span>(lower)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="upper-triangular-matrix" class="section level2">
+<h2>upper-triangular matrix</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="fu">generate_tri_pascal_matrix</span>(<span class="dv">16</span>, <span class="st">&quot;upper&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>upper</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14] [,15] [,16]</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [1,]    1    1    1    1    1    1    1    1    1     1     1     1     1     1     1     1</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;  [2,]    0    1    2    3    4    5    6    7    8     9    10    11    12    13    14    15</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;  [3,]    0    0    1    3    6   10   15   21   28    36    45    55    66    78    91   105</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;  [4,]    0    0    0    1    4   10   20   35   56    84   120   165   220   286   364   455</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;  [5,]    0    0    0    0    1    5   15   35   70   126   210   330   495   715  1001  1365</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;  [6,]    0    0    0    0    0    1    6   21   56   126   252   462   792  1287  2002  3003</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;  [7,]    0    0    0    0    0    0    1    7   28    84   210   462   924  1716  3003  5005</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;  [8,]    0    0    0    0    0    0    0    1    8    36   120   330   792  1716  3432  6435</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;  [9,]    0    0    0    0    0    0    0    0    1     9    45   165   495  1287  3003  6435</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [10,]    0    0    0    0    0    0    0    0    0     1    10    55   220   715  2002  5005</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; [11,]    0    0    0    0    0    0    0    0    0     0     1    11    66   286  1001  3003</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; [12,]    0    0    0    0    0    0    0    0    0     0     0     1    12    78   364  1365</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; [13,]    0    0    0    0    0    0    0    0    0     0     0     0     1    13    91   455</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; [14,]    0    0    0    0    0    0    0    0    0     0     0     0     0     1    14   105</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; [15,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     1    15</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; [16,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     1</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="fu">pascal_matrix_plot</span>(upper)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="symmetric-matrix" class="section level2">
+<h2>symmetric matrix</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>symm <span class="ot">&lt;-</span> <span class="fu">generate_symm_pascal_matrix</span>(<span class="dv">26</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>symm</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;       [,1] [,2] [,3] [,4]  [,5]   [,6]   [,7]    [,8]     [,9]    [,10]     [,11]     [,12]      [,13]</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt;  [1,]    1    1    1    1     1      1      1       1        1        1         1         1          1</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;  [2,]    1    2    3    4     5      6      7       8        9       10        11        12         13</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt;  [3,]    1    3    6   10    15     21     28      36       45       55        66        78         91</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt;  [4,]    1    4   10   20    35     56     84     120      165      220       286       364        455</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;  [5,]    1    5   15   35    70    126    210     330      495      715      1001      1365       1820</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt;  [6,]    1    6   21   56   126    252    462     792     1287     2002      3003      4368       6188</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;  [7,]    1    7   28   84   210    462    924    1716     3003     5005      8008     12376      18564</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt;  [8,]    1    8   36  120   330    792   1716    3432     6435    11440     19448     31824      50388</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt;  [9,]    1    9   45  165   495   1287   3003    6435    12870    24310     43758     75582     125970</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; [10,]    1   10   55  220   715   2002   5005   11440    24310    48620     92378    167960     293930</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; [11,]    1   11   66  286  1001   3003   8008   19448    43758    92378    184756    352716     646646</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; [12,]    1   12   78  364  1365   4368  12376   31824    75582   167960    352716    705432    1352078</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; [13,]    1   13   91  455  1820   6188  18564   50388   125970   293930    646646   1352078    2704156</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; [14,]    1   14  105  560  2380   8568  27132   77520   203490   497420   1144066   2496144    5200300</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; [15,]    1   15  120  680  3060  11628  38760  116280   319770   817190   1961256   4457400    9657700</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; [16,]    1   16  136  816  3876  15504  54264  170544   490314  1307504   3268760   7726160   17383860</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; [17,]    1   17  153  969  4845  20349  74613  245157   735471  2042975   5311735  13037895   30421755</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; [18,]    1   18  171 1140  5985  26334 100947  346104  1081575  3124550   8436285  21474180   51895935</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; [19,]    1   19  190 1330  7315  33649 134596  480700  1562275  4686825  13123110  34597290   86493225</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; [20,]    1   20  210 1540  8855  42504 177100  657800  2220075  6906900  20030010  54627300  141120525</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; [21,]    1   21  231 1771 10626  53130 230230  888030  3108105 10015005  30045015  84672315  225792840</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; [22,]    1   22  253 2024 12650  65780 296010 1184040  4292145 14307150  44352165 129024480  354817320</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; [23,]    1   23  276 2300 14950  80730 376740 1560780  5852925 20160075  64512240 193536720  548354040</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; [24,]    1   24  300 2600 17550  98280 475020 2035800  7888725 28048800  92561040 286097760  834451800</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; [25,]    1   25  325 2925 20475 118755 593775 2629575 10518300 38567100 131128140 417225900 1251677700</span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; [26,]    1   26  351 3276 23751 142506 736281 3365856 13884156 52451256 183579396 600805296 1852482996</span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt;            [,14]       [,15]       [,16]        [,17]        [,18]        [,19]        [,20]</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt;  [1,]          1           1           1            1            1            1 1.000000e+00</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt;  [2,]         14          15          16           17           18           19 2.000000e+01</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt;  [3,]        105         120         136          153          171          190 2.100000e+02</span></span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt;  [4,]        560         680         816          969         1140         1330 1.540000e+03</span></span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt;  [5,]       2380        3060        3876         4845         5985         7315 8.855000e+03</span></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co">#&gt;  [6,]       8568       11628       15504        20349        26334        33649 4.250400e+04</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a><span class="co">#&gt;  [7,]      27132       38760       54264        74613       100947       134596 1.771000e+05</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt;  [8,]      77520      116280      170544       245157       346104       480700 6.578000e+05</span></span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a><span class="co">#&gt;  [9,]     203490      319770      490314       735471      1081575      1562275 2.220075e+06</span></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="co">#&gt; [10,]     497420      817190     1307504      2042975      3124550      4686825 6.906900e+06</span></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="co">#&gt; [11,]    1144066     1961256     3268760      5311735      8436285     13123110 2.003001e+07</span></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt; [12,]    2496144     4457400     7726160     13037895     21474180     34597290 5.462730e+07</span></span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a><span class="co">#&gt; [13,]    5200300     9657700    17383860     30421755     51895935     86493225 1.411205e+08</span></span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a><span class="co">#&gt; [14,]   10400600    20058300    37442160     67863915    119759850    206253075 3.473736e+08</span></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a><span class="co">#&gt; [15,]   20058300    40116600    77558760    145422675    265182525    471435600 8.188092e+08</span></span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a><span class="co">#&gt; [16,]   37442160    77558760   155117520    300540195    565722720   1037158320 1.855968e+09</span></span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a><span class="co">#&gt; [17,]   67863915   145422675   300540195    601080390   1166803110   2203961430 4.059929e+09</span></span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a><span class="co">#&gt; [18,]  119759850   265182525   565722720   1166803110   2333606220   4537567650 8.597497e+09</span></span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a><span class="co">#&gt; [19,]  206253075   471435600  1037158320   2203961430   4537567650   9075135300 1.767263e+10</span></span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a><span class="co">#&gt; [20,]  347373600   818809200  1855967520   4059928950   8597496600  17672631900 3.534526e+10</span></span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a><span class="co">#&gt; [21,]  573166440  1391975640  3247943160   7307872110  15905368710  33578000610 6.892326e+10</span></span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a><span class="co">#&gt; [22,]  927983760  2319959400  5567902560  12875774670  28781143380  62359143990 1.312824e+11</span></span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a><span class="co">#&gt; [23,] 1476337800  3796297200  9364199760  22239974430  51021117810 113380261800 2.446627e+11</span></span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a><span class="co">#&gt; [24,] 2310789600  6107086800 15471286560  37711260990  88732378800 202112640600 4.467753e+11</span></span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a><span class="co">#&gt; [25,] 3562467300  9669554100 25140840660  62852101650 151584480450 353697121050 8.004724e+11</span></span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a><span class="co">#&gt; [26,] 5414950296 15084504396 40225345056 103077446706 254661927156 608359048206 1.408831e+12</span></span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a><span class="co">#&gt;              [,21]        [,22]        [,23]        [,24]        [,25]        [,26]</span></span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a><span class="co">#&gt;  [1,] 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00</span></span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a><span class="co">#&gt;  [2,] 2.100000e+01 2.200000e+01 2.300000e+01 2.400000e+01 2.500000e+01 2.600000e+01</span></span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a><span class="co">#&gt;  [3,] 2.310000e+02 2.530000e+02 2.760000e+02 3.000000e+02 3.250000e+02 3.510000e+02</span></span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a><span class="co">#&gt;  [4,] 1.771000e+03 2.024000e+03 2.300000e+03 2.600000e+03 2.925000e+03 3.276000e+03</span></span>
+<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a><span class="co">#&gt;  [5,] 1.062600e+04 1.265000e+04 1.495000e+04 1.755000e+04 2.047500e+04 2.375100e+04</span></span>
+<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a><span class="co">#&gt;  [6,] 5.313000e+04 6.578000e+04 8.073000e+04 9.828000e+04 1.187550e+05 1.425060e+05</span></span>
+<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a><span class="co">#&gt;  [7,] 2.302300e+05 2.960100e+05 3.767400e+05 4.750200e+05 5.937750e+05 7.362810e+05</span></span>
+<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a><span class="co">#&gt;  [8,] 8.880300e+05 1.184040e+06 1.560780e+06 2.035800e+06 2.629575e+06 3.365856e+06</span></span>
+<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a><span class="co">#&gt;  [9,] 3.108105e+06 4.292145e+06 5.852925e+06 7.888725e+06 1.051830e+07 1.388416e+07</span></span>
+<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a><span class="co">#&gt; [10,] 1.001501e+07 1.430715e+07 2.016008e+07 2.804880e+07 3.856710e+07 5.245126e+07</span></span>
+<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a><span class="co">#&gt; [11,] 3.004502e+07 4.435217e+07 6.451224e+07 9.256104e+07 1.311281e+08 1.835794e+08</span></span>
+<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a><span class="co">#&gt; [12,] 8.467232e+07 1.290245e+08 1.935367e+08 2.860978e+08 4.172259e+08 6.008053e+08</span></span>
+<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a><span class="co">#&gt; [13,] 2.257928e+08 3.548173e+08 5.483540e+08 8.344518e+08 1.251678e+09 1.852483e+09</span></span>
+<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a><span class="co">#&gt; [14,] 5.731664e+08 9.279838e+08 1.476338e+09 2.310790e+09 3.562467e+09 5.414950e+09</span></span>
+<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a><span class="co">#&gt; [15,] 1.391976e+09 2.319959e+09 3.796297e+09 6.107087e+09 9.669554e+09 1.508450e+10</span></span>
+<span id="cb4-73"><a href="#cb4-73" tabindex="-1"></a><span class="co">#&gt; [16,] 3.247943e+09 5.567903e+09 9.364200e+09 1.547129e+10 2.514084e+10 4.022535e+10</span></span>
+<span id="cb4-74"><a href="#cb4-74" tabindex="-1"></a><span class="co">#&gt; [17,] 7.307872e+09 1.287577e+10 2.223997e+10 3.771126e+10 6.285210e+10 1.030774e+11</span></span>
+<span id="cb4-75"><a href="#cb4-75" tabindex="-1"></a><span class="co">#&gt; [18,] 1.590537e+10 2.878114e+10 5.102112e+10 8.873238e+10 1.515845e+11 2.546619e+11</span></span>
+<span id="cb4-76"><a href="#cb4-76" tabindex="-1"></a><span class="co">#&gt; [19,] 3.357800e+10 6.235914e+10 1.133803e+11 2.021126e+11 3.536971e+11 6.083590e+11</span></span>
+<span id="cb4-77"><a href="#cb4-77" tabindex="-1"></a><span class="co">#&gt; [20,] 6.892326e+10 1.312824e+11 2.446627e+11 4.467753e+11 8.004724e+11 1.408831e+12</span></span>
+<span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a><span class="co">#&gt; [21,] 1.378465e+11 2.691289e+11 5.137916e+11 9.605669e+11 1.761039e+12 3.169871e+12</span></span>
+<span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a><span class="co">#&gt; [22,] 2.691289e+11 5.382579e+11 1.052049e+12 2.012616e+12 3.773656e+12 6.943527e+12</span></span>
+<span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a><span class="co">#&gt; [23,] 5.137916e+11 1.052049e+12 2.104099e+12 4.116715e+12 7.890371e+12 1.483390e+13</span></span>
+<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a><span class="co">#&gt; [24,] 9.605669e+11 2.012616e+12 4.116715e+12 8.233431e+12 1.612380e+13 3.095770e+13</span></span>
+<span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a><span class="co">#&gt; [25,] 1.761039e+12 3.773656e+12 7.890371e+12 1.612380e+13 3.224760e+13 6.320530e+13</span></span>
+<span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a><span class="co">#&gt; [26,] 3.169871e+12 6.943527e+12 1.483390e+13 3.095770e+13 6.320530e+13 1.264106e+14</span></span>
+<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a><span class="fu">pascal_matrix_plot</span>(symm)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
