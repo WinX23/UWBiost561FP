@@ -15,3 +15,8 @@ a plot with Sierpiński triangle
 \description{
 Plot Sierpiński triangle based on pascal matrix
 }
+\examples{
+m <- generate_tri_pascal_matrix(10)
+plot <- pascal_matrix_plot(m)
+plot
+}

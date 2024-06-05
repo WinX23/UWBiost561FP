@@ -17,3 +17,7 @@ a nxn Pascal matrix
 \description{
 Generate Pascal's triangle in matrix form
 }
+\examples{
+matrix <- generate_tri_pascal_matrix(20)
+matrix
+}

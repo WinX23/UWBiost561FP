@@ -15,3 +15,7 @@ a nxn symmetric pascal matrix
 \description{
 Generate a symmetric pascal matrix
 }
+\examples{
+matrix <- generate_symm_pascal_matrix(15)
+matrix
+}

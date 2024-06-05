@@ -5,6 +5,9 @@
 #'
 #' @return a nxn Pascal matrix
 #' @export
+#' @examples
+#' matrix <- generate_tri_pascal_matrix(20)
+#' matrix
 generate_tri_pascal_matrix <- function(n, position = "lower") {
 
   # check inputs are correct
@@ -46,6 +49,9 @@ generate_tri_pascal_matrix <- function(n, position = "lower") {
 #'
 #' @return a nxn symmetric pascal matrix
 #' @export
+#' @examples
+#' matrix <- generate_symm_pascal_matrix(15)
+#' matrix
 generate_symm_pascal_matrix <- function(n) {
   # check n is correct
   stopifnot(n %% 1 == 0, n > 0)
@@ -79,21 +85,27 @@ generate_symm_pascal_matrix <- function(n) {
 #'
 #' @return a plot with Sierpiński triangle
 #' @export
+#' @examples
+#' m <- generate_tri_pascal_matrix(10)
+#' plot <- pascal_matrix_plot(m)
+#' plot
 pascal_matrix_plot <- function(m) {
 
   # assign odds to 1, even to 0
-  m_odd_df <- dplyr::as_tibble(round(m))
+  m_odd_df <- dplyr::as_tibble(m)
   m_odd_df <- ifelse(m_odd_df %% 2 == 1, 1, 0)
 
   # add row numbers as new column
-  m_odd_df <- as.data.frame(m_odd_df) %>% dplyr::mutate(Row = dplyr::row_number())
+  m_odd_df <- as.data.frame(m_odd_df)
+  m_odd_df <- dplyr::mutate(m_odd_df, Row = dplyr::row_number())
 
   # convert to long format
-  m_odd_long <- m_odd_df %>%
-    tidyr::pivot_longer(cols = !Row,
-                 names_to = "Column",
-                 values_to = "Value") %>%
-    dplyr::mutate(Column = as.numeric(gsub("V", "", Column)))
+  m_odd_long <- tidyr::pivot_longer(m_odd_df,
+                                    cols = !Row,
+                                    names_to = "Column",
+                                    values_to = "Value")
+
+  m_odd_long <- dplyr::mutate(m_odd_long, Column = as.numeric(gsub("V", "", Column)))
 
   # subset of odds
   m_odd_use <- subset(m_odd_long, Value == 1)
@@ -102,7 +114,8 @@ pascal_matrix_plot <- function(m) {
                         ggplot2::aes(x = Column, y = Row)) +
     ggplot2::geom_point(color = "darkblue") +
     ggplot2::theme_bw() +
-    ggplot2::coord_fixed(ratio = 1)
+    ggplot2::coord_fixed(ratio = 1) +
+    ggplot2::labs(x = NULL, y = NULL)
 
   return(plot)
 

@@ -1,0 +1,47 @@
+---
+title: "FP"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(UWBiost561FP)
+```
+
+This is a vignette for our package. We will generate Pascal's triangle in matrix forms in three ways: a lower-triangular matrix, an upper-triangular matrix, and a symmetric matrix. Then, we will plot them separately.
+
+## lower-triangular matrix
+
+```{r, warning = F, fig.align = 'center'}
+lower <- generate_tri_pascal_matrix(10, "lower")
+lower
+
+pascal_matrix_plot(lower)
+```
+
+## upper-triangular matrix
+
+```{r, fig.align = 'center'}
+upper <- generate_tri_pascal_matrix(16, "upper")
+upper
+pascal_matrix_plot(upper)
+```
+
+## symmetric matrix
+
+```{r, fig.align = 'center'}
+symm <- generate_symm_pascal_matrix(26)
+symm
+pascal_matrix_plot(symm)
+```
+
