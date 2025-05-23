@@ -1,36 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/404.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/articles/UWBiost561FP.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/index.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/reference/generate_symm_pascal_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/reference/generate_tri_pascal_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://yxwr5.github.io/UWBiost561FP/reference/pascal_matrix_plot.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/404.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/LICENSE-text.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/LICENSE.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/articles/UWBiost561FP.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/articles/index.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/authors.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/index.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/reference/generate_symm_pascal_matrix.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/reference/generate_tri_pascal_matrix.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/reference/index.html</loc></url>
+<url><loc>https://yxwr5.github.io/UWBiost561FP/reference/pascal_matrix_plot.html</loc></url>
 </urlset>
+
